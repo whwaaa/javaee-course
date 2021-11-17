@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			var time = 0;
+			var maxTime = 6;
+			window.onload = function(){
+				document.getElementsByTagName("body")[0].innerHTML = "<img id='pingTestImg' src='http://hanweiwu.gitee.io/javaee-course/pingimg/Ping_special_test_image.png?t="+ new Date().getTime() +"'>";
+				ping();
+			}
+			function ping(){
+				setTimeout(function() {
+					time = time + 1;
+					var pingTestImg = document.getElementById("pingTestImg");
+					if(pingTestImg.height == 1){
+						// 连通
+						// console.log("连通 -- time:" + time);
+						window.location.href = "http://hanweiwu.gitee.io/javaee-course/index.html?ck=ok";
+					}else{
+						// 联不通
+						if(time >= maxTime){
+							// console.log("联不通 -- time:" + time);
+							window.location.href = "http://wuhanwei.qicp.vip/static/javaee-course/index.html?ck=ok"
+						}else{
+							ping()
+						}
+					}
+				}, 50);
+			}
+		</script>
+	</head>
+		
+	<body>
+	</body>
+</html>

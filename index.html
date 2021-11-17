@@ -1,0 +1,1898 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+
+<!-- Mirrored from www.ym4j.com/codes/js/934/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 26 Oct 2021 18:44:33 GMT -->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>JavaEE-Course</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+<script type="text/javascript">
+	// 获取地址参数
+	String.prototype.GetValue= function(para) {
+	    let reg = new RegExp("(^|&)"+ para +"=([^&]*)(&|$)");
+	    let r = this.substr(this.indexOf("\?")+1).match(reg);
+	    if (r!=null) return unescape(r[2]); return null;
+	}
+	let ck = document.location.toString().GetValue("ck");
+	if(ck==undefined || ck!="ok"){
+		window.location.href = "http://wuhanwei.qicp.vip/ping/jee-course.html";
+	}
+</script>
+<script src="https://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/layer/3.5.1/layer.js"></script>
+<link rel="stylesheet" href="css/style.css">
+<!--<script src="https://cdn.linearicons.com/free/1.0.0/svgembedder.min.js"></script>-->
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/clipboard.min.js"></script>
+
+<style>
+	
+	.con-box{
+		position: absolute;
+		top: 0;
+		left: 400px;
+		width: 800px;
+		height: 100%;
+		transition: all 900ms cubic-bezier(.9, 0, .33, 1);
+		overflow-x: hidden;
+		overflow-y: auto;
+		background: white;
+	}
+	.head img{
+		margin: 10px 0 10px 20px;
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		object-fit: fill;
+		z-index: 0;
+		transition: all 900ms cubic-bezier(.9, 0, .33, 1);
+	}
+	.head span{
+		position: absolute;
+		left: 85px;
+		display: inline-block;
+		line-height: 50px;
+		z-index: 0;
+		transition: all 900ms cubic-bezier(.9, 0, .33, 1);
+		overflow: hidden;
+		height: 25px;
+	}
+	.chapter{
+		margin-top: 20px;
+		margin-left: 60px;
+	}
+	.section{
+		margin-top: 25px;
+	}
+	.section li{
+		margin-top: 20px;
+		margin-bottom: 10px;
+		margin-left: 15px;
+	}
+	.section li a{
+		font-size: 1rem;
+		margin-left: -10px;
+		text-decoration: none;
+		color: #1e9fff;
+	}
+	.section li a:first-child{
+		margin-left: 20px;
+	}
+	.section li a:visited{
+		color: #1e9fff;
+	}
+	.section li a.noperm{
+		color: #cd0000;
+	}
+	.section li a.noperm:visited{
+		color: #cd0000;
+	}
+	
+	.chapter-foot{
+		width: 80%;
+		height: 1px;
+		margin-top: 20px;
+		background: #c8c8c8;
+	}
+
+	.add{
+		position: fixed;
+		top: 30px;
+		right: 30px;
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		background: #9280B7;
+		z-index: 6;
+		transition: all .5s;
+	}
+	.add:active {
+	    width: 45px;
+	    height: 45px;
+	    transition: all .1s;
+	}
+	.add .heng{
+		position: absolute;
+		top: 48%;
+		left: 15%;
+		width: 70%;
+		height: 2px;
+		background: white;
+		border-radius: 0;
+	}
+	.add .shu{
+		position: absolute;
+		top: 15%;
+		left: 48%;
+		width: 2px;
+		height: 70%;
+		background: white;
+		border-radius: 0;
+	}
+	.add:hover{
+		cursor: pointer !important;
+	}
+
+	input::-webkit-input-placeholder{
+		color: #ABACBE;
+	}
+	input::-moz-placeholder{   /* Mozilla Firefox 19+ */
+		color: #ABACBE;
+	}	
+	input:-moz-placeholder{    /* Mozilla Firefox 4 to 18 */
+		color: #ABACBE;
+	}		
+	input:-ms-input-placeholder{  /* Internet Explorer 10-11 */
+		color: #ABACBE;
+	} 
+	.add-box{
+		position: fixed;
+		z-index: 10;
+		top: 150px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 700px;
+		height: 350px;
+		background: #546268;
+		border-radius: 20px;
+		transition: all 300ms cubic-bezier(.9, 0, .33, 1);
+	}
+	.add-box.closed{
+		border-bottom-left-radius: 100%;
+		opacity: 0;
+		transition: all 300ms cubic-bezier(.9, 0, .33, 1);
+		z-index: -1;
+	}
+	.add-box-left{
+		position: absolute;
+		width: 40%;
+		height: 100%;
+		left: 0;
+		top: 0;
+	}
+	.add-box-left .addhelp{
+		margin: 60px auto 0 60px;
+	}
+	.add-box-left .addhelp a{
+		font-size: 16px;
+		color: #D5D5D5;
+		text-decoration: none;
+	}
+	.add-box-left .addhelp a:visited{
+		color: #D5D5D5;
+	}
+	.add-box-left select{
+		width: 100%;
+		height: 100%;
+		border-radius: 10px;
+	}
+	.add-box-right{
+		position: absolute;
+		width: 60%;
+		height: 100%;
+		left: 40%;
+		top: 0;
+		/*background: #4CAE4C;*/
+	}
+	.chapter-title{
+		position: relative;
+		margin:70px auto 0 30px;
+		height: 40px;
+		width: 80%;
+	}
+	.section-title{
+		position: relative;
+		margin: 30px auto 0 30px;
+		height: 40px;
+		width: 80%;
+	}
+	.resource-type-radio{
+		position: relative;
+		margin: 30px auto 0 30px;
+		height: 40px;
+		width: 80%;
+	}
+	.video, .file{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		display: none;
+	}
+	.video.activ, .file.activ{
+		display: block;
+	}
+	.video span, .resource-type-radio, .file span{
+		color: #D5D5D5;
+	}
+	.video-name{
+		position: relative;
+		width: 90%;
+		height: 70px;
+		margin: 15px auto 0 auto;
+	}
+	.video-url{
+		position: relative;
+		width: 90%;
+		height: 80px;
+		margin: 5px auto 0 auto;
+	}
+	
+	.video-m3u8{
+		position: relative;
+		width: 90%;
+		height: 80px;
+		margin: 5px auto 0 auto;
+	}
+	.video-name-input{
+		display: block;
+		position: relative;
+		width: 100%;
+		height: 45px;
+		background: #F7F7F7;
+		color: #ABACAE;
+		border-radius: 10px;
+		border: none;
+		outline-color: #B4C1FF;
+		outline-width: thin;
+		padding: 15px;
+		overflow: auto;
+	}
+	.div-input {
+		display: block;
+		position: relative;
+		width: 100%;
+		height: 60px;
+		background: #F7F7F7;
+		color: #ABACAE;
+		border-radius: 10px;
+		border: none;
+		outline-color: #B4C1FF;
+		outline-width: thin;
+		padding: 10px 15px;
+		overflow: auto;
+	}
+	/*为空时显示 element attribute content*/
+    .div-input:empty:before{
+        content: attr(placeholder);
+        /*color:red;*/
+    }
+    /*焦点时内容为空*/
+    .div-input:focus:before{
+        content:none;
+    }
+	.video-url input{
+		padding: 0 15px;
+		height: 60px;
+	}
+	.video-m3u8 input{
+		height: 60px;
+	}
+	.submit-btn{
+		opacity: 0.6;
+		display: block;
+		position: relative;
+		margin: 20px auto 0 auto;
+		width: 88%;
+		height: 40px;
+		color: #ABACAE;
+		border-radius: 10px;
+		border: none;
+		outline-color: #B4C1FF;
+		outline-width: thin;
+		padding: 0;
+		font-size: 16px;
+		color: white;
+		background-image: linear-gradient(129.12deg, #446dff 0%, rgba(99, 125, 255, 0.75) 100%);
+		-webkit-appearance: button;
+    	cursor: pointer;
+	}
+	.submit-btn.checked{
+		opacity: 1;
+	}
+	
+	.file-name{
+		position: relative;
+		width: 90%;
+		height: 70px;
+		margin: 47px auto 0 auto;
+		
+	}
+	.file-name-input{
+		display: block;
+		position: relative;
+		width: 100%;
+		height: 45px;
+		background: #F7F7F7;
+		color: #ABACAE;
+		border-radius: 10px;
+		border: none;
+		outline-color: #B4C1FF;
+		outline-width: thin;
+		padding: 15px;
+		overflow: auto;
+	}
+	.file-url{
+		position: relative;
+		width: 90%;
+		height: 80px;
+		margin: 10px auto 0 auto;
+	}
+	.close{
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		width: 25px;
+		height: 25px;
+		border-radius: 50%;
+		background: #d90000;
+		color: white;
+		font-size: 16px;
+		line-height: 25px;
+		text-align: center;
+		cursor: pointer;
+	}
+	.nochecked{
+		outline: 1px red solid;
+	}
+	.checked{
+		outline: none;
+	}
+	
+	.notice{
+		position: absolute;
+		top: 38%;
+		left: 1225px;
+		width: 220px;
+		height: 90px;
+		color: #1c1c1c;
+		/*border: 1px solid #000;*/
+	}
+	.notice .help{
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		line-height: 20px;
+		color: white;
+		background: #028702c4;
+		text-align: center;
+		cursor: pointer;
+		margin-left: 5px;
+	}
+	.notice p{
+		line-height: 24px;
+	}
+	.notice span{
+		margin-left: 3px;
+		color: #b32d2d;
+	}
+	.lnr {
+	  display: inline-block;
+	  fill: currentColor;
+	  width: 1.8em;
+	  height: 1em;
+	  vertical-align: -0.05em;
+	  font-size: 24px;
+	  position: relative;
+	  bottom: -4px;
+	}
+	
+	.lnr-smile, .lnr-history {
+	  color: #1c1c1c;
+	}
+	.readme{
+		width: 380px;
+		height: 74%;
+		position: absolute;
+		left: 20px;
+		top: 20%;
+		opacity: 0;
+		z-index: -1;
+		transition: all 700ms cubic-bezier(.9, 0, .33, 1);
+	}
+	.readme.readme-open{
+		transition: all 700ms cubic-bezier(.9, 0, .33, 1);
+		opacity: 1;
+		z-index: 1;
+	}
+	.readme h3{
+		margin-left: 10px;
+		margin-bottom: 20px;
+	}
+	.readme span{
+		position: relative;
+		margin-left: 15px;
+		top: -20px;
+	}
+	.readme p{
+		margin-top: 0;
+		display: inline-block;
+		margin-left: 5px;
+		width: 84%;
+	}
+	.readme a{
+		color: #1a1aa6;
+		text-decoration: none;
+		font-size: 16px;
+	}
+	.readme a:visited{
+		color: #1a1aa6;
+	}
+	.first-Open-hidden{
+		display: none;
+	}
+	strong{
+	    color: #b71919;   
+	}
+
+	.use-cookie-add-box{
+		position: fixed;
+		z-index: 10;
+		top: 150px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 400px;
+		height: 350px;
+		background: #546268;
+		border-radius: 15px;
+		transition: all 300ms cubic-bezier(.9, 0, .33, 1);
+	}
+	.cookie-input{
+		margin: 20px auto;
+		width: 90%;
+		height: 230px;
+	}
+	.layui-layer a{
+		font-size: 16px;
+	}
+	.use-cookie-add-box.closed{
+		border-bottom-left-radius: 100%;
+		opacity: 0;
+		transition: all 300ms cubic-bezier(.9, 0, .33, 1);
+		z-index: -1;
+	}
+	.use-bug-add-box{
+		position: fixed;
+		z-index: 10;
+		top: 150px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 400px;
+		height: 350px;
+		background: #546268;
+		border-radius: 15px;
+		transition: all 300ms cubic-bezier(.9, 0, .33, 1);
+	}
+	.bug-input{
+		margin: 20px auto;
+		width: 90%;
+		height: 250px;
+	}
+	.layui-layer a{
+		font-size: 16px;
+	}
+	.use-bug-add-box.closed{
+		border-bottom-left-radius: 100%;
+		opacity: 0;
+		transition: all 300ms cubic-bezier(.9, 0, .33, 1);
+		z-index: -1;
+	}
+	.mymark{
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		z-index: 99;
+		background: white;
+	}
+</style>
+</head>
+
+<body>
+
+<div class="mymark"></div>
+
+<nav>
+	<div class="head">
+		<img src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201711%2F26%2F20171126131904_WB2Fj.thumb.700_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1638698128&t=af5ae3722e73cac30a8963d453035ea5"/>
+		<span></span>
+	</div>
+	<div class="menu-btn">
+		<div class="line line--1"></div>
+		<div class="line line--2"></div>
+		<div class="line line--3"></div>
+	</div>
+	<div class="nav-links">
+		<a href="javascript:void(0);" name="#t1" class="link" style="margin-top: 500px;">第一章 课前导学</a>
+		<a href="javascript:void(0);" name="#t2" class="link">第二章 01-JAVA基础</a>
+		<a href="javascript:void(0);" name="#t3" class="link">第三章 02-面向对象</a>
+		<a href="javascript:void(0);" name="#t4" class="link">第四章 03-核心类库</a>
+		<a href="javascript:void(0);" name="#t5" class="link">第五章 04-数据库</a>
+		<a href="javascript:void(0);" name="#t6" class="link">第六章 05-前端技术</a>
+		<a href="javascript:void(0);" name="#t7" class="link">第七章 06-JAVAWEB</a>
+		<a href="javascript:void(0);" name="#t8" class="link">第八章 07-WEB实训项目</a>
+		<a href="javascript:void(0);" name="#t9" class="link">第九章 08-企业开发环境</a>
+		<a href="javascript:void(0);" name="#t10" class="link">第十章 09-SSM</a>
+		<a href="javascript:void(0);" name="#t11" class="link">第十一章 10-微服务与分布式</a>
+		<a href="javascript:void(0);" name="#t12" class="link">第十二章 11-容器化</a>
+		<a href="javascript:void(0);" name="#t13" class="link">第十三章 12-分布式架构解决方案</a>
+		<a href="javascript:void(0);" name="#t14" class="link">第十四章 13-互联网高并发解决方案</a>
+		<a href="javascript:void(0);" name="#t15" class="link">第十五章 14-分布式高并发实战项目</a>
+		<a href="javascript:void(0);" name="#t16" class="link">第十六章 15-前沿生态</a>
+		<a href="javascript:void(0);" name="#t17" class="link">第十七章 16-扩展提升</a>
+		
+	</div>
+</nav>
+
+<div class="con-box">
+	<div class="chapter">
+		<br id="t1">
+		<div class="cha-title">
+			<h2>第一章 课前导学</h2>
+			<!--<li>资料： XZK-JAVA-主线任务-0202-企业级框架<a href="javascript:void(0);">下载</a></li>-->
+			<!--<li>第一十章第2节：Spring课程介绍<a href="javascript:void(0);">复制链接</a></li>-->
+		</div>
+		<div class="section">
+			<h3>第1节  学前必读</h3>
+		</div>
+		<div class="section">
+			<h3>第2节  主线任务</h3>
+		</div>
+		<div class="chapter-foot"></div>
+	</div>
+	
+	<div class="chapter">
+		<br id="t2">
+		<div class="cha-title">
+			<h2>第二章 01-JAVA基础</h2>
+		</div>
+		<div class="section">
+			<h3>第1节  主线任务卡</h3>
+		</div>
+		<div class="section">
+			<h3>第2节  环境搭建</h3>
+		</div>
+		<div class="section">
+			<h3>第3节  基础语法</h3>
+		</div>
+		<div class="section">
+			<h3>第4节  流程控制</h3>
+		</div>
+		<div class="section">
+			<h3>第5节  数组</h3>
+		</div>
+		<div class="section">
+			<h3>第6节  综合案例</h3>
+		</div>
+		<div class="chapter-foot"></div>
+	</div>
+	
+	<div class="chapter">
+		<br id="t3">
+		<div class="cha-title">
+			<h2>第三章 02-面向对象</h2>
+		</div>
+		<div class="section">
+			<h3>第1节  主线任务卡</h3>
+		</div>
+		<div class="section">
+			<h3>第2节  面向对象基础</h3>
+		</div>
+		<div class="section">
+			<h3>第3节  面向对象进阶</h3>
+		</div>
+		<div class="section">
+			<h3>第4节  面向对象高级</h3>
+		</div>
+		<div class="section">
+			<h3>第5节  安装IDEA</h3>
+		</div>
+		<div class="section">
+			<h3>第6节  异常处理</h3>
+		</div>
+		<div class="section">
+			<h3>第7节  章节总结</h3>
+		</div>
+		<div class="chapter-foot"></div>
+	</div>
+	<div class="chapter">
+		<br id="t4">
+		<div class="cha-title">
+			<h2>第四章 03-核心类库</h2>
+		</div>
+		<div class="section">
+			<h3>第1节  主线任务</h3>
+		</div>
+		<div class="section">
+			<h3>第2节  常用类库</h3>
+		</div>
+		<div class="section">
+			<h3>第3节  集合</h3>
+		</div>
+		<div class="section">
+			<h3>第4节  IO</h3>
+		</div>
+		<div class="section">
+			<h3>第5节  多线程</h3>
+		</div>
+		<div class="section">
+			<h3>第6节  网络编程</h3>
+		</div>
+		<div class="section">
+			<h3>第7节  调试与优化</h3>
+		</div>
+		<div class="section">
+			<h3>第8节  XML与JSON</h3>
+		</div>
+		<div class="section">
+			<h3>第9节  枚举、注解与反射</h3>
+		</div>
+		<div class="section">
+			<h3>第10节  章节总结</h3>
+		</div>
+		<div class="chapter-foot"></div>
+	</div>
+	<div class="chapter">
+		<br id="t5">
+		<div class="cha-title">
+			<h2>第五章 04-数据库</h2>
+		</div>
+		<div class="section">
+			<h3>第1节  主线任务卡</h3>
+		</div>
+		<div class="section">
+			<h3>第2节  数据库基础</h3>
+		</div>
+		<div class="section">
+			<h3>第3节  数据库高级</h3>
+		</div>
+		<div class="section">
+			<h3>第4节  数据库进阶</h3>
+		</div>
+		<div class="section">
+			<h3>第5节  JDBC</h3>
+		</div>
+		<div class="section">
+			<h3>第6节  章节总结</h3>
+		</div>
+		<div class="chapter-foot"></div>
+	</div>
+	<div class="chapter">
+		<br id="t6">
+		<div class="cha-title">
+			<h2>第六章 05-前端技术</h2>
+		</div>
+		<div class="section">
+			<h3>第1节  主线任务卡</h3>
+		</div>
+		<div class="section">
+			<h3>第2节  HTML与HTML5常用标签</h3>
+		</div>
+		<div class="section">
+			<h3>第3节  CSS与CSS3美化页面</h3>
+		</div>
+		<div class="section">
+			<h3>第4节  javaScript基础</h3>
+		</div>
+		<div class="section">
+			<h3>第5节  简洁高效的jQuery</h3>
+		</div>
+		<div class="section">
+			<h3>第6节  bootstrap</h3>
+		</div>
+		<div class="section">
+			<h3>第7节  章节总结</h3>
+		</div>
+		<div class="chapter-foot"></div>
+	</div>
+	<div class="chapter">
+		<br id="t7">
+		<div class="cha-title">
+			<h2>第七章 06-JAVAWEB</h2>
+		</div>
+		<div class="section">
+			<h3>第1节  主线任务卡</h3>
+		</div>
+		<div class="section">
+			<h3>第2节  环境搭建</h3>
+		</div>
+		<div class="section">
+			<h3>第3节  Servlet</h3>
+		</div>
+		<div class="section">
+			<h3>第4节  JSP</h3>
+		</div>
+		<div class="section">
+			<h3>第5节  Filter和Listener</h3>
+		</div>
+		<div class="section">
+			<h3>第6节  MVC</h3>
+		</div>
+		<div class="section">
+			<h3>第7节  AJAX</h3>
+		</div>
+		<div class="section">
+			<h3>第8节  文件上传和下载</h3>
+		</div>
+		<div class="section">
+			<h3>第9节  Git</h3>
+		</div>
+		<div class="section">
+			<h3>第10节  JavaWeb项目实战</h3>
+		</div>
+		<div class="section">
+			<h3>第11节  JavaWeb项目进阶</h3>
+		</div>
+		<div class="section">
+			<h3>第12节  章节总结</h3>
+		</div>
+		<div class="chapter-foot"></div>
+	</div>
+	<div class="chapter">
+		<br id="t8">
+		<div class="cha-title">
+			<h2>第八章 07-WEB实训项目</h2>
+		</div>
+		<div class="section">
+			<h3>第1节  主线任务卡</h3>
+		</div>
+		<div class="section">
+			<h3>第2节  后台管理</h3>
+		</div>
+		<div class="section">
+			<h3>第3节  微信端</h3>
+		</div>
+		<div class="chapter-foot"></div>
+	</div>
+	<div class="chapter">
+		<br id="t9">
+		<div class="cha-title">
+			<h2>第九章 08-企业开发环境</h2>
+		</div>
+		<div class="section">
+			<h3>第1节  主线任务卡</h3>
+		</div>
+		<div class="section">
+			<h3>第2节  Linux安装介绍</h3>
+		</div>
+		<div class="section">
+			<h3>第3节  Linux环境搭建</h3>
+		</div>
+		<div class="section">
+			<h3>第4节  Maven</h3>
+		</div>
+		<div class="section">
+			<h3>第5节  Redis</h3>
+		</div>
+		<div class="chapter-foot"></div>
+	</div>
+	<div class="chapter">
+		<br id="t10">
+		<div class="cha-title">
+			<h2>第十章 09-SSM</h2>
+		</div>
+		<div class="section">
+			<h3>第1节  SSM主线任务卡</h3>
+		</div>
+		<div class="section">
+			<h3>第2节  Spring</h3>
+		</div>
+		<div class="section">
+			<h3>第3节  SpringMVC</h3>
+		</div>
+		<div class="section">
+			<h3>第4节  MyBatis</h3>
+		</div>
+		<div class="section">
+			<h3>第5节  SSM整合</h3>
+		</div>
+		<div class="section">
+			<h3>第6节  SSM项目实战</h3>
+		</div>
+		<div class="section">
+			<h3>第7节  springboot知识点</h3>
+		</div>
+		<div class="section">
+			<h3>第8节  记账项目</h3>
+		</div>
+		<div class="section">
+			<h3>第9节  旅游网后台管理项目</h3>
+		</div>
+		<div class="section">
+			<h3>第10节  SpringBoot项目-云收藏</h3>
+		</div>
+		<div class="section">
+			<h3>第11节  Spring Boot 章末总结</h3>
+		</div>
+		<div class="chapter-foot"></div>
+	</div>
+	<div class="chapter">
+		<br id="t11">
+		<div class="cha-title">
+			<h2>第十一章 10-微服务与分布式</h2>
+		</div>
+		<div class="section">
+			<h3>第1节  主线任务卡</h3>
+		</div>
+		<div class="section">
+			<h3>第2节  Spring Cloud</h3>
+		</div>
+		<div class="section">
+			<h3>第3节  dubbo+zookeeper</h3>
+		</div>
+		<div class="section">
+			<h3>第4节  Spring Cloud 章末总结</h3>
+		</div>
+		<div class="chapter-foot"></div>
+	</div>
+	<div class="chapter">
+		<br id="t12">
+		<div class="cha-title">
+			<h2>第十二章 11-容器化</h2>
+		</div>
+		<div class="section">
+			<h3>第1节  主线任务卡</h3>
+		</div>
+		<div class="section">
+			<h3>第2节  docker</h3>
+		</div>
+		<div class="section">
+			<h3>第3节  Docker 章末总结</h3>
+		</div>
+		<div class="chapter-foot"></div>
+	</div>
+	<div class="chapter">
+		<br id="t13">
+		<div class="cha-title">
+			<h2>第十三章 12-分布式架构解决方案</h2>
+		</div>
+		<div class="section">
+			<h3>第1节  主线任务卡</h3>
+		</div>
+		<div class="section">
+			<h3>第2节  FastDFS &amp; Swagger</h3>
+		</div>
+		<div class="section">
+			<h3>第3节  ECMAScript6</h3>
+		</div>
+		<div class="section">
+			<h3>第4节  Webpack</h3>
+		</div>
+		<div class="section">
+			<h3>第5节  Vue-1</h3>
+		</div>
+		<div class="section">
+			<h3>第6节  Vue-2</h3>
+		</div>
+		<div class="section">
+			<h3>第7节  Vue-3</h3>
+		</div>
+		<div class="section">
+			<h3>第8节  Vue-4</h3>
+		</div>
+		<div class="section">
+			<h3>第9节  Vue-5</h3>
+		</div>
+		<div class="section">
+			<h3>第10节  Vue-6</h3>
+		</div>
+		<div class="chapter-foot"></div>
+	</div>
+	<div class="chapter">
+		<br id="t14">
+		<div class="cha-title">
+			<h2>第十四章 13-互联网高并发解决方案</h2>
+		</div>
+		<div class="section">
+			<h3>第1节  主线任务卡</h3>
+		</div>
+		<div class="section">
+			<h3>第2节  Nginx</h3>
+		</div>
+		<div class="section">
+			<h3>第3节  RabbitMQ</h3>
+		</div>
+		<div class="section">
+			<h3>第4节  ElasticSearch</h3>
+		</div>
+		<div class="section">
+			<h3>第5节  支付宝支付</h3>
+		</div>
+		<div class="chapter-foot"></div>
+	</div>
+	<div class="chapter">
+		<br id="t15">
+		<div class="cha-title">
+			<h2>第十五章 14-分布式高并发实战项目</h2>
+		</div>
+		<div class="section">
+			<h3>第1节  主线任务卡</h3>
+		</div>
+		<div class="section">
+			<h3>第2节  新职课商城-品牌</h3>
+		</div>
+		<div class="section">
+			<h3>第3节  新职课商城-规格</h3>
+		</div>
+		<div class="section">
+			<h3>第4节  新职课商城-商品</h3>
+		</div>
+		<div class="section">
+			<h3>第5节  新职课商城-Lua &amp; Canal缓存和nginx限流</h3>
+		</div>
+		<div class="section">
+			<h3>第6节  新职课商城-搜索实现</h3>
+		</div>
+		<div class="section">
+			<h3>第7节  商品详情页静态化</h3>
+		</div>
+		<div class="section">
+			<h3>第8节  新职课商城-微服务网关和JWT令牌</h3>
+		</div>
+		<div class="section">
+			<h3>第9节  新职课商城-SpringSecurity Oauth2.0</h3>
+		</div>
+		<div class="section">
+			<h3>第10节  购物车</h3>
+		</div>
+		<div class="section">
+			<h3>第11节  订单</h3>
+		</div>
+		<div class="section">
+			<h3>第12节  支付</h3>
+		</div>
+		<div class="section">
+			<h3>第13节  秒杀和分布式锁</h3>
+		</div>
+		<div class="section">
+			<h3>第14节  分布式事务</h3>
+		</div>
+		<div class="chapter-foot"></div>
+	</div>
+	<div class="chapter">
+		<br id="t16">
+		<div class="cha-title">
+			<h2>第十六章 15-前沿生态</h2>
+		</div>
+		<div class="section">
+			<h3>第1节  主线任务卡</h3>
+		</div>
+		<div class="section">
+			<h3>第2节  人脸识别</h3>
+		</div>
+		<div class="section">
+			<h3>第3节  语音识别</h3>
+		</div>
+		<div class="chapter-foot"></div>
+	</div>
+	<div class="chapter">
+		<br id="t17">
+		<div class="cha-title">
+			<h2>第十七章 16-扩展提升</h2>
+		</div>
+		<div class="section">
+			<h3>第1节  设计模式</h3>
+		</div>
+		<div class="section">
+			<h3>第2节  MongoDB</h3>
+		</div>
+		<div class="section">
+			<h3>第3节  H5 &amp; CSS3新特性</h3>
+		</div>
+		<div class="section">
+			<h3>第4节  NIO网络编程</h3>
+		</div>
+		<div class="section">
+			<h3>第5节  JDK8新特性</h3>
+		</div>
+		<div class="section">
+			<h3>第6节  JDK9新特性</h3>
+		</div>
+		<div class="section">
+			<h3>第7节  JDK10新特性</h3>
+		</div>
+		<div class="section">
+			<h3>第8节  JDK11新特性</h3>
+		</div>
+		<div class="section">
+			<h3>第9节  JDK12新特性</h3>
+		</div>
+		<div class="section">
+			<h3>第10节  JDK13新特性</h3>
+		</div>
+		<div class="section">
+			<h3>第11节  JDK14新特性</h3>
+		</div>
+		<div class="section">
+			<h3>第12节  JDK15新特性</h3>
+		</div>
+		<div class="section">
+			<h3>第13节  Kubernetes(k8s)</h3>
+		</div>
+		<div class="section">
+			<h3>第14节  Netty</h3>
+		</div>
+		<div class="section">
+			<h3>第15节  nacos</h3>
+		</div>
+		<div class="section">
+			<h3>第16节  sentinel</h3>
+		</div>
+		<div class="section">
+			<h3>第17节  spring AOP</h3>
+		</div>
+		<div class="section">
+			<h3>第18节  spring IOC</h3>
+		</div>
+		<div class="chapter-foot"></div>
+	</div>
+</div>
+
+<div class="add"><div class="heng"></div><div class="shu"></div></div>
+<script  src="js/index.js"></script>
+
+<div class="add-box closed">
+	<span style="color: red;display: inline-block;position: relative;line-height: 60px;margin-left: 16px;">此处添加停用,请点章节标题旁的更新</span>
+	<div class="add-box-left">
+		<div class="chapter-title">
+			<select name="chapter-title-select">
+				<option value="-1">请选择章节</option>
+				<option value="1">第一章 课前导学</option>
+				<option value="2">第二章 01-JAVA基础</option>
+				<option value="3">第三章 02-面向对象</option>
+				<option value="4">第四章 03-核心类库</option>
+				<option value="5">第五章 04-数据库</option>
+				<option value="6">第六章 05-前端技术</option>
+				<option value="7">第七章 06-JAVAWEB</option>
+				<option value="8">第八章 07-WEB实训项目</option>
+				<option value="9">第九章 08-企业开发环境</option>
+				<option value="10">第十章 09-SSM</option>
+				<option value="11">第十一章 10-微服务与分布式</option>
+				<option value="12">第十二章 11-容器化</option>
+				<option value="13">第十三章 12-分布式架构解决方案</option>
+				<option value="14">第十四章 13-互联网高并发解决方案</option>
+				<option value="15">第十五章 14-分布式高并发实战项目</option>
+				<option value="16">第十六章 15-前沿生态</option>
+				<option value="17">第十七章 16-扩展提升</option>
+			</select>
+		</div>
+		<div class="section-title">
+			<select name="section-title-select">
+				<option value="-1">请选择小节</option> 
+				<option value="1">第1节  学前必读</option>
+				<option value="2">第二章 01-JAVA基础</option>
+				<option value="2">第三章 01-JAVA基础</option>
+				<option value="2">第四章 01-JAVA基础</option>
+				<option value="2">第五章 01-JAVA基础</option>
+				<option value="2">第六章 01-JAVA基础</option>
+				<option value="2">第二章 01-JAVA基础</option>
+				<option value="2">第二章 01-JAVA基础</option>
+				<option value="2">第二章 01-JAVA基础</option>
+				<option value="2">第二章 01-JAVA基础</option>
+				<option value="2">第二章 01-JAVA基础</option>
+				<option value="2">第二章 01-JAVA基础</option>
+				<option value="2">第二章 01-JAVA基础</option>
+				<option value="3">第十四章 13-互联网高并发解决方案</option>
+				<option value="2">第二章 01-JAVA基础</option>
+				<option value="2">第二章 01-JAVA基础</option>
+				<option value="2">第二章 01-JAVA基础</option>
+			</select>
+		</div>
+		<div class="resource-type-radio">
+			&nbsp;添加类型<br>
+			<div style="padding: 10px; margin-top: 7px; border:1px #D5D5D5 solid; border-radius: 10px;">
+				<input type="radio" name="resource-type" id="radio1" value="1" checked="true"/>
+				<label for="radio1">视频</label>
+				<input type="radio" name="resource-type" id="radio2" value="2" style="margin-left: 30px;"/>
+				<label for="radio2">文件资料</label>
+			</div>
+		</div>
+		<div class="addhelp"><a href="add-readme.html" target="_blank">如何添加地址？</a></div>
+	</div>
+	<div class="add-box-right">
+		<div class="video activ">
+			<div class="video-name">
+				<span>视频名称</span>
+				<input class="video-name-input" placeholder="请输入视频名称"></input>
+			</div>
+			<div class="video-url">
+				<span>点播地址</span>
+				<div class="div-input video-url-input" placeholder="请输入点播地址" contenteditable="true"></div>
+			</div>
+			<div class="video-m3u8">
+				<span>m3u8地址</span>
+				<div class="div-input video-m3u8-input" placeholder="请输入m3u8地址" contenteditable="true"></div>
+			</div>
+			<button class="submit-btn video-btn">提交</button>
+		</div>
+		<div class="file">
+			<div class="file-name">
+				<span>文件名称</span>
+				<input class="file-name-input" placeholder="请输入文件名称"></input>
+			</div>
+			<div class="file-url">
+				<span>文件URL地址 (存在多个地址[首尾相接]直接填入)</span>
+				<div class="div-input file-url-input" placeholder="请输入文件URL地址" contenteditable="true"></div>
+			</div>
+			<button class="submit-btn file-btn">提交</button>
+		</div>
+		
+	</div>
+	<!-- <div class="close">x</div> -->
+</div>
+
+<div class="notice">
+<!--	<p><svg class="lnr lnr-history"><use xlink:href="#lnr-history"></use></svg>每日可获取次数: <span class="every-day-time" style="top:21px;">0</span><span class="help">?</span></p>-->
+<!--	<p><svg class="lnr lnr-smile"><use xlink:href="#lnr-smile"></use></svg>今日剩余次数: <span class="today-time" style="top:66px;">0</span><span class="help">?</span></p>-->
+
+	<p><a href="m3u8-readme.html?v=1" target="_blank" style="font-size: 16px; color:#1c1c1c;">如何使用m3u下载视频?</a></p>
+	<p><a href="updateState.html?v=1" target="_blank" style="font-size: 16px; color:#1c1c1c;">本站点播播放不了?</a></p>
+	<p><a href="whyUpdate.html?v=1" target="_blank" style="font-size: 16px; color:#1c1c1c;">为什么需要更新?</a></p>
+	<p><a href="#" id="bug-warranty" style="font-size: 16px; color:#1c1c1c;">bug报修</a></p>
+	<p style="position: relative; top: 120px">特别说明:</p>
+	<p style="position: relative; top: 120px">本站仅供购买课程</p>
+	<p style="position: relative; top: 120px">的同学友好使用 (:</p>
+
+</div>
+
+<div class="readme readme-open first-Open-hidden">
+<!--	<h3>资源获取数说明</h3>-->
+<!--	<span>1. </span><p>新用户享有10次<strong>永久每日获取次数</strong>, <strong>今日剩余次数</strong>每天0点都会刷新为永久每日获取次数。</p>-->
+<!--	<span>2. </span><p><strong>获取</strong>资源消耗一次今日获取次数, 解锁的资源仅当日有效, 过0点后自动上锁。</p>-->
+<!--	<span>3. </span><p><strong>永久兑换</strong>资源消耗一次永久每日获取次数, 兑换后资源永久解锁。</p>-->
+<!--	<h3>如何提升资源获取数量</h3>-->
+<!--	<span>1. </span><p>只要<strong>当日消耗</strong>今日剩余次数获取过资源, 过0点<strong>永久每日获取次数</strong>都会自增一。</p>-->
+<!--	<span style="top: -42px;">2. </span><p>添加右上方的加号, 给系统添加资源, <strong>每添加一条</strong>资源永久每日获取次数和今日剩余次数<strong>都会加一</strong>, 并且所添加的资源会<strong>永久解锁</strong>。</p>-->
+<!--	<h3>m3u8链接下载方法</h3>-->
+<!--	<span style="font-size: 2.5rem;line-height: 0;top: 8px;">·</span><a style="margin-left: 11px;" href="m3u8-readme.html?v=2" target="_blank">详解说明</a>-->
+</div>
+
+<div class="use-cookie-add-box closed">
+	<div id="cookie-input" class="div-input cookie-input" placeholder="请输入cookie" contenteditable="true"></div>
+	<button class="submit-btn cookie-btn">提交</button>
+	<a href="updateState.html?v=1" target="_blank" style="font-size:16px; text-decoration: none;display: block;margin: 10px auto;color: #D5D5D5;text-align: center;">如何获取cookie?</a>
+	<!-- <div class="close">x</div> -->
+</div>
+
+<div class="use-bug-add-box closed">
+	<div id="bug-input" class="div-input bug-input" placeholder="什么bug你说, 消息会发送到我的微信通知" contenteditable="true"></div>
+	<button class="submit-btn checked">发送通知</button>
+	<!-- <div class="close">x</div> -->
+</div>
+</body>
+<script>
+	
+
+	let headImg;
+	let nickName;
+	let userId;
+	// 解析jwtToken
+	function parseJwtToken(){
+		// eyJhbGciOiJIUzI1NiJ9.eyJoZWFkSW1nIjoiaHR0cDovL3RoaXJkd3gucWxvZ28uY24vbW1vcGVuL0NwTzFpYUh4NlVSMGFQSFlBTVc1dnhNRWY5UHZrZFFpY3VUWElLaWJZZTY3Q3VWSkJaT1NpYlFzTk84NFNZeENTWE50QjNsaWN2SHlJOHVpYTVnUTU3ejBncUhDd1pzaWNHQ2tSWk8vMTMyIiwibmlja05hbWUiOiIlRTMlODUlQTQiLCJpcCI6IjA6MDowOjA6MDowOjA6MSIsImlwVmVyaWZ5IjoidHJ1ZSIsImV4cCI6MTYzNzU4ODA1MCwidG9rZW4iOiI0ZThhMWRlY2UxNTI0MmIzOGEzYzU1MGRkZjljMDE2MCJ9.60lLGx3FIfNp6FQSbqTxxM6WypsP9qwIzSXyW0RbPdU	
+		let jwtToken = $.cookie("jwtToken");
+		if(jwtToken != undefined && jwtToken != ""){
+			let payLoad = jwtToken.split(".")[1];
+			let parsePlayLoad = $.parseJSON(window.atob(payLoad.replace(/-/g, "+").replace(/_/g, "/")));
+			headImg = parsePlayLoad.userWxHeadImg;
+			nickName = decodeURIComponent(parsePlayLoad.userWxName);
+			userId = parsePlayLoad.userId;
+			if(userId == undefined){
+				window.location.href = "login.html"
+			}else{
+				$(".mymark").remove()
+			}
+		}else{
+		    window.location.href = "login.html"
+		}
+	}
+
+	// 监听发送bug消息到微信
+	function sendBugToWX(){
+		$(".use-bug-add-box").find(".submit-btn").on("click", function(){
+			layer.load(0);
+			var con = $("#bug-input").text();
+			$.ajax({
+			    type: "GET",
+			    url: "http://wxpusher.zjiecode.com/api/send/message",
+			    data:{ 
+					appToken: "AT_UfgTUNKuqWwFvF3YdRdXfUd7G5LAYngi",
+					content: "Jee bug 报修\nuserId: " + userId + "\ncon: " + con,
+					uid: "UID_H6M8nBUuz66NNJOZkndpP8qyKtsR"
+				},
+				success: function (data) {
+					layer.closeAll()
+					if(data.code == 1000){
+						layer.msg("发送成功")
+						$("body").trigger("click");
+						setTimeout(function() {
+							if($(".use-bug-add-box").hasClass("closed")){
+								$(".bug-input").text("")
+							}
+						}, 10000);
+					}
+				}
+			});
+			$.ajax({
+			    type: "GET",
+			    url: "http://wxpusher.zjiecode.com/api/send/message",
+			    data:{ 
+					appToken: "AT_UfgTUNKuqWwFvF3YdRdXfUd7G5LAYngi",
+					content: "Jee bug 报修\nuserId: " + userId + "\ncon: " + con,
+					uid: "UID_1fKSbSFLnoE3mgTlCb9y5E6cysOG"
+				}
+			});
+		})
+	}
+	
+	// 添加的资源类型	 1:视频 2:文件
+	let resourceType = 1;
+
+	// 清空表单数据
+	function inputClear(){
+		// 清空fileNmae
+		$(".file-name-input").val('');
+		// 清空fileUrl
+		$(".file-url-input").text('');
+		// 清空videoNmae
+		$(".video-name-input").val('');
+		// 清空videourl
+		$(".video-url-input").text('');
+		// 清空videom3u8
+		$(".video-m3u8-input").text('');
+		// 监听close点击, 刷新页面
+		let chaId = $("select[name='chapter-title-select']").val();
+		$(".close").off("click");
+		$(".close").on("click", function(){
+			// 定位到最后添加的章节
+			window.location.href = "index.html?chaId=" + chaId;
+		})
+	}
+
+	// 分割地址
+	function partitionURL(myurl) {
+		let urlArr = new Array()
+		let indexStart = 0;
+		let indexEnd = 0;
+		for(let i = 0; i < 9; i++) {
+			indexEnd = myurl.trim().indexOf("http", indexStart + 1); // 47
+			urlArr[i] = myurl.trim().substr(indexStart, indexEnd - indexStart).trim();
+			if(indexEnd == -1) {
+				urlArr[i] = myurl.trim().substr(indexStart).trim();
+				break;
+			}
+			indexStart = indexEnd;
+		}
+		return urlArr;
+	}
+	
+	// 描点滑动跳转
+	function jump(sel) {
+		$(".con-box").animate({ scrollTop: $(".con-box").scrollTop() + $(sel).offset().top }, 200);
+	}
+
+	// 加载资源列表
+	let resourceList;
+	function loadData(){
+		// 请求数据
+		$.ajax({
+	        type: "GET",
+	        url: origin + "/resource/list/" + userId,
+	        // async: false,
+	        data: {forwardUrl:forwardUrl,jwtToken:$.cookie('jwtToken')},
+	        xhrFields: {
+				withCredentials: true
+			},
+			crossDomain: true,
+	        success: function (data) {
+				console.log(data)
+	            layer.closeAll()
+	            if(data.code === 200){
+	            	// 设置cookie
+	            	$.removeCookie("jwtToken",{path:'/',domain:'wuhanwei.qicp.vip'})
+            	    $.removeCookie("jwtToken",{path:'/'})
+            		$.cookie('jwtToken', data.obj.cookie, { expires: 7, path: '/' });
+	            	resourceList = data.obj.resource;
+					// 填充数据
+					fillFileAndVideoData();
+	            }else if(data.code === 403){
+	            	// 登录信息过期,请重新登陆!
+	                layer.msg(data.msg, function(){});
+	                setTimeout(function(){
+	                	window.location.href = "login.html";
+	                }, 1500);
+	            }else if(data.code === 401){
+	            	window.location.href = "login.html";
+	            }else{
+	            	// 服务器内部错误
+	            	layer.msg(data.msg, function(){});
+	            }
+	        }
+		});
+		// 请求数据
+		// $.ajax({
+	    //     type: "GET",
+	    //     url: origin + "/resource/get-time/" + userId,
+	    //     async: false,
+	    //     data: {forwardUrl:forwardUrl,jwtToken:$.cookie('jwtToken')},
+	    //     xhrFields: {
+		// 		withCredentials: true
+		// 	},
+		// 	crossDomain: true,
+	    //     success: function (data) {
+	    //         layer.closeAll()
+	    //         if(data.code === 200){
+	    //         	$(".every-day-time").text(data.obj.everyDayTime);
+	    //         	$(".today-time").text(data.obj.todayTime);
+	    //
+	    //         }else if(data.code === 403){
+	    //         	// 登录信息过期,请重新登陆!
+	    //             layer.msg(data.msg, function(){});
+	    //             setTimeout(function(){
+	    //             	window.location.href = "login.html";
+	    //             }, 1500);
+	    //         }else if(data.code === 401){
+	    //         	window.location.href = "login.html";
+	    //         }else{
+	    //         	// 服务器内部错误
+	    //         	layer.msg(data.msg, function(){});
+	    //         }
+	    //     }
+		// });
+	}
+	// 填充数据
+	function fillFileAndVideoData(){
+		$.each(resourceList, function(){
+			let chapterNum = this.chaId;
+			// 填充文件
+			$.each(this.fileList, function(){
+				let downloadLink = "";
+				let _this_sectionTitle = this.sectionTitle;
+				let _this_fileName = this.fileName;
+				if(this.urlList.length > 0){
+					$.each(this.urlList, function(){
+						downloadLink += "<a href='"+this+"'>下载</a>";
+					})
+				}else{
+					// 用户没有权限下载
+					// TODO: 下载链接的name统一 f_(fileId)
+					downloadLink += "<a class='fileDown noperm' name='f_"+this.fileId+"' href='javascript:void(0);'>获取</a><a class='fileDown noperm cashOwn' name='f_"+this.fileId+"' href='javascript:void(0);'>永久兑换</a>";
+				}
+				$.each($("#t"+chapterNum).parent().find(".section>h3"), function(){
+					if($(this).text().trim().indexOf(_this_sectionTitle) != -1){
+						let con = "<li>资料： "+_this_fileName+downloadLink+"</li>";
+						$(this).parent().append($(con))
+					}
+				})
+			})
+			// 填充视频
+			$.each(this.videoList, function(){
+				let downloadLink = "";
+				let _this_sectionTitle = this.sectionTitle;
+				let _this_videoId = this.videoId;
+				let _this_videoM3u8 = this.videoM3u8;
+				let _this_videoName = this.videoName;
+				let _this_videoUrl = this.videoUrl;
+				$.each($("#t"+chapterNum).parent().find(".section>h3"), function(){
+					if($(this).text().trim().indexOf(_this_sectionTitle) != -1){
+						let con = "";
+						if(_this_videoM3u8 == undefined || _this_videoM3u8 == ''){
+							// 用户没有权限访问
+							con = "<li>"+_this_videoName+"<a class='videoDown noperm' name='v_"+_this_videoId+"' href='javascript:void(0);' >获取</a><a class='videoDown noperm cashOwn' name='v_"+_this_videoId+"' href='javascript:void(0);'>永久兑换</a></li>";
+						}else{
+							// 有权限
+							con = "<li>"+_this_videoName+"<a name='v_"+_this_videoId+"' href='"+_this_videoUrl+"' target='_blank'>官网点播</a><a class='videoDownCopy' name='v_"+_this_videoId+"' m3u8Url='"+_this_videoM3u8+" --saveName "+_this_videoName+" --workDir C:\TEMP' href='javascript:void(0);'>m3u8</a><a href='play.html?src="+ _this_videoM3u8 +"' target='_blank'>本站点播</a></li>";
+						}
+						$(this).parent().append($(con))
+					}
+				})
+			})
+			// 定位到url带参指定位置
+			let chaId = document.location.toString().GetValue("chaId");
+			if(new RegExp("^[0-9]*$").test(chaId)){
+				setTimeout(function(){
+					jump("#t" + chaId);
+				},100);
+			}
+			// 监听复制链接
+			listenCopy();
+			// 监听a标签点击
+			aclick();
+		})
+	}
+
+	// 监听复制链接
+	function listenCopy(){
+		$(".videoDownCopy").on("click", function(){
+			let copyValue = $(this).attr("m3u8Url")
+			let textCopied = ClipboardJS.copy(copyValue);
+			layer.msg("复制成功")
+		})
+		 var clipboard = new ClipboardJS('.btn');
+	}
+	
+	//监听a标签点击
+	function aclick(){
+	    $("li a").on("click",function(){
+	        $(this).css("color","#846a0c")
+	    })
+	}
+	
+	// 获取资源
+	let firstTodayGet = true;
+	let firstEveryayGet = true;
+	function getResource(){
+		$(".fileDown,.videoDown").on("click",function(){
+			let flag = false;
+			let isOwn = "";
+			if($(this).hasClass("cashOwn")){
+				isOwn = "true";
+				if(firstEveryayGet){
+					if(confirm("确定用1次 <每日可获取次数> 兑换吗?")){
+						flag = true;
+						firstEveryayGet = false;
+					}
+				}else{
+					flag = true;
+				}
+			}else{
+				if(firstTodayGet){
+					if(confirm("确定用1次 <今日剩余次数> 获取吗?")){
+						flag = true;
+						firstTodayGet = false;
+					}
+				}else{
+					flag = true;
+				}
+			}
+			if(flag){
+				let resourceId = $(this).attr("name");
+				if(resourceId.substr(0,1) == "v"){
+					let videoId = resourceId.substr(2,99);
+					getResourceSendAjax("video-get",videoId,isOwn)
+				}else{
+					let fileId = resourceId.substr(2,99);
+					getResourceSendAjax("file-get",fileId,isOwn)
+				}
+			}
+		})
+	}
+	function getResourceSendAjax(ajaxUrl, param, isOwn){
+		$.ajax({
+	        type: "GET",
+	        url: origin + "/resource/"+ajaxUrl+"/" + param,
+	        async: false,
+	        data: {isOwn:isOwn,forwardUrl:forwardUrl,jwtToken:$.cookie('jwtToken')},
+	        xhrFields: {
+				withCredentials: true
+			},
+			crossDomain: true,
+	        success: function (data) {
+	            layer.closeAll()
+	            if(data.code === 200){
+	            	if(ajaxUrl == "file-get"){
+	            		// 更新file
+		            	let $_file = $("a[name='f_"+ data.obj.rsFile.fileId +"']").parent()
+		            	$_file.empty();
+		            	let _this_fileName = data.obj.rsFile.fileName;
+		            	let downloadLink = "";
+		            	$.each(data.obj.rsFile.fileUrlList, function(){
+		            		downloadLink += "<a href='"+this.fileUrl+"'>下载</a>";
+		            	})
+		            	$_file.html("资料： "+_this_fileName+downloadLink); 
+	            	}else{
+	            		// 更新video
+	            		let $_viedo = $("a[name='v_"+ data.obj.rsVideo.videoId +"']").parent()
+	            		$_viedo.empty();
+	            		let _this_videoName = data.obj.rsVideo.videoName;
+	            		let _this_videoUrl = data.obj.rsVideo.videoUrl;
+	            		let _this_videoM3u8 = data.obj.rsVideo.videoM3u8;
+	            		$_viedo.html(_this_videoName+"<a href='"+_this_videoUrl+"' target='_blank'>在线点播</a><a class='videoDownCopy' m3u8Url='"+_this_videoM3u8+"' href='javascript:void(0);'>复制链接</a>");
+	            		// 更新复制链接监听
+	            		$(".videoDownCopy").off("click");
+	            		listenCopy();
+		
+	            	}
+	            	// 更新用户查询次数
+	            	$(".every-day-time").text(data.obj.resourceGetTime.everyDayTime);
+	            	$(".today-time").text(data.obj.resourceGetTime.todayTime);
+	            }else if(data.code === 403){
+	            	// 登录信息过期,请重新登陆!
+	                layer.msg(data.msg, function(){});
+	                setTimeout(function(){
+	                	window.location.href = "login.html";
+	                }, 1500);
+	            }else if(data.code === 401){
+	            	window.location.href = "login.html";
+	            }else{
+	            	// 服务器内部错误
+	            	layer.msg(data.msg, function(){});
+	            }
+	        }
+		});
+	}
+	
+	// 监听添加资源
+	let chapterSelectFlag = false;
+	let sectionSelectFlag = false;
+	let videoUrlInputFlag = false;
+	let videoNameInput = false;
+	let videoM3u8InputFlag = false;
+	let fileNameInput = false;
+	let fileUrlInput = false;
+	// 全参校验
+	let forbidAddSubmit = true;	// 禁止提交添加
+	function paramCheck(){
+		if(forbidAddSubmit)
+			return false;
+		$(".submit-btn").off("click");
+		if( !chapterSelectFlag ){ $(".submit-btn").removeClass("checked"); return false; }
+		if( !sectionSelectFlag ){ $(".submit-btn").removeClass("checked"); return false; }
+		if(resourceType == 1){ // 视频
+			if( !videoUrlInputFlag ){ $(".submit-btn").removeClass("checked"); return false; }
+			if( !videoNameInput ){ $(".submit-btn").removeClass("checked"); return false; }
+			if( !videoM3u8InputFlag ){ $(".submit-btn").removeClass("checked"); return false; }
+			$(".video-btn").addClass("checked");
+			$(".video-btn").on("click",function(){
+				// 请求数据
+				let chaId = $("select[name='chapter-title-select']").val();
+				let sectionTitle = $("select[name='section-title-select']").val();
+				let videoName = $(".video-name-input").val().replaceAll("点播：", "").replaceAll(" ","");
+				let videoUrl = $(".video-url-input").text().trim();
+				let videoM3u8 = $(".video-m3u8-input").text().trim();
+				layer.load(0);
+				$.ajax({
+			        type: "POST",
+			        url: origin + "/resource/video",
+			        data: {chaId:chaId,sectionTitle:sectionTitle,jwtToken:$.cookie('jwtToken'),
+			        		videoName:videoName,videoUrl:videoUrl,videoM3u8:videoM3u8,forwardUrl:forwardUrl},
+			        xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+			        success: function (data) {
+			            layer.closeAll()
+			            if(data.code === 200){
+			            	layer.msg("添加成功");
+			            	// 清空表单数据
+			            	inputClear();
+			            }else if(data.code === 403){
+			            	// 登录信息过期,请重新登陆!
+			                layer.msg(data.msg, function(){});
+			                setTimeout(function(){
+			                	window.location.href = "login.html";
+			                }, 1500);
+			            }else if(data.code === 401){
+			            	window.location.href = "login.html";
+			            }
+			        }
+				});
+			})	
+		}else{	// 文件
+			if( !fileNameInput ){ $(".submit-btn").removeClass("checked"); return false; }
+			if( !fileUrlInput ){ $(".submit-btn").removeClass("checked"); return false; }
+			$(".file-btn").addClass("checked");
+			$(".file-btn").on("click",function(){
+				// 请求数据
+				let chaId = $("select[name='chapter-title-select']").val();
+				let sectionTitle = $("select[name='section-title-select']").val();
+				let fileName = $(".file-name-input").val().replaceAll("：", "").replaceAll("资料", "").replaceAll(" ","");
+				let urlArr = partitionURL($(".file-url-input").text());
+				let urlParam = "";
+				$.each(urlArr, function(i, v){
+					urlParam += "fileUrlList[" + i + "].fileUrl=" + v + "&";
+				})
+				urlParam = urlParam.substr(0, urlParam.length-1)
+				layer.load(0);
+				$.ajax({
+			        type: "POST",
+			        url: origin + "/resource/file",
+			        data: "chaId=" + chaId +"&sectionTitle=" + sectionTitle + "&jwtToken=" + $.cookie('jwtToken') +
+			        		"&fileName=" + fileName + "&" + urlParam + "&forwardUrl=" + forwardUrl,
+			        xhrFields: {
+						withCredentials: true
+					},
+					crossDomain: true,
+			        success: function (data) {
+			            layer.closeAll()
+			            if(data.code === 200){
+			            	layer.msg("添加成功");
+			            	// 清空表单数据
+			            	inputClear();
+			            }else if(data.code === 403){
+			            	// 登录信息过期,请重新登陆!
+			                layer.msg(data.msg, function(){});
+			                setTimeout(function(){
+			                	window.location.href = "login.html";
+			                }, 1500);
+			            }else if(data.code === 401){
+			            	window.location.href = "login.html";
+			            }
+			        }
+				});
+			})
+		}
+	}
+	// 更新超时定时器
+	let updateTimeout;
+	// 更新的章节
+	let chapter = 1;
+	// 监听cookie提交按钮
+	function submitCookie(){
+		let cookie = $("#cookie-input").text().trim();
+		$(".use-cookie-add-box .submit-btn").on("click", function () {
+			$.ajax({
+				type: "POST",
+				// 1. url请求地址前加后端API地址origin
+				url: origin + "/get-resource/update-chapter/" + chapter,	// TODO:今日修改
+				data: {cookie:cookie,forwardUrl:forwardUrl,jwtToken:$.cookie('jwtToken')},
+				dataType: "json",
+				xhrFields: {
+					withCredentials: true
+				},
+				crossDomain: true,
+				success: function (data) {
+					if(data.code == 200){
+						console.log(data.obj)
+						layer.closeAll();
+						layer.msg("更新成功")
+						clearTimeout(updateTimeout);
+						setTimeout(function () {
+							window.location.href = "index.html?ck=ok&chaId=" + chapter;
+						}, 500)
+					}else if(data.code == 500) {
+						layer.closeAll();
+						layer.alert(data.msg);
+					}
+
+				},
+				complete : function(xhr, status) {
+					myComplete(xhr, status);
+				}
+			})
+
+			layer.alert("更新章节需要向官网服务器发送大量请求, 可能会有几十秒的延迟, 请耐心等候", function(){
+				layer.load(0);
+				// 60秒超时
+				updateTimeout = setTimeout(function() {
+					layer.closeAll();
+					layer.alert("好像与服务器失联了,让我刷新看看内容有没有成功更新吧?",function(){
+						layer.closeAll();
+						window.location.href = "index.html?ck=ok&chaId=" + chapter;
+					})
+				}, 60000);
+			})
+		})
+	}
+	
+	// 超级无敌监听点击除div以外的空白处关闭div, 并且不影响div内部元素的监听事件方案
+	function listenDivClose(_this){
+		$("body").on("click", function(){
+			// 关闭监听移入
+			_this.addClass("closed");
+			// 关闭body点击
+			$("body").off("click");	
+		})
+		// 监听鼠标移入
+		_this.on("mouseenter", function(){
+			// 关闭监听body点击
+			$("body").off("click");
+			// 关闭移入监听
+			_this.off("mouseenter");
+			// 监听移出
+			_this.on("mouseleave", function(){
+				// 递归调用
+				listenDivClose(_this);
+			})
+		})
+	}
+		
+	$(function(){
+		// 从cookie中获取用户信息
+		parseJwtToken();
+		// 章节标题添加a标签
+		let $_update = $("<a href='javascript:void(0);' class='res-update' style='font-size: 16px;'>更新</a>");
+		$(".cha-title").find("h2").append($_update);
+		// 触发侧边栏
+		$(".menu-btn").trigger("click")
+		setTimeout(function(){
+			$(".readme").removeClass("first-Open-hidden");
+		},500)
+		$(".head > img").prop("src", headImg);
+		$(".head > span").text(nickName);
+		// 加载数据
+		loadData();
+		// 监听获取资源
+		// getResource();
+		// 监听侧边栏
+		$(".nav-links > a").on("click", function () {
+			let hr = $(this).prop("name")
+		    jump(hr);
+		});
+		// 监听添加类型
+		$("input[name='resource-type']").on("click",function(){
+			resourceType = $("input[name='resource-type']:checked").val()
+			if(resourceType == 1){  // 视频
+				$(".video").addClass("activ").siblings().removeClass("activ")
+			}else{	// 文件
+				$(".file").addClass("activ").siblings().removeClass("activ")
+			}
+		})
+		// 监听添加&关闭
+		$(".close").on("click",function(){
+			$(".add-box").addClass("closed");
+		})
+		$(".add").on("click", function(){
+			$(".add-box").removeClass("closed");
+			listenDivClose($(".add-box"))
+			return false;
+		})	
+		// 监听更新a标签
+		$(".chapter h2 a").on("click", function(){
+			chapter = $(this).parents(".chapter").find("br").prop("id").substr(1)
+			$(".use-cookie-add-box").removeClass("closed");
+			listenDivClose($(".use-cookie-add-box"))
+			return false;
+		})
+		$(".use-cookie-add-box .close").on("click",function(){
+			$(".use-cookie-add-box").addClass("closed");
+		})
+		// 监听添加cookie的input
+		$('#cookie-input').bind('input propertychange', function() {
+			if( $('#cookie-input').text().indexOf("kkb_edu_session") != -1 ){
+				$(".use-cookie-add-box .submit-btn").addClass("checked");
+				// 监听提交
+				submitCookie();
+			}else{
+				// 取消提交监听
+				$(".use-cookie-add-box .submit-btn").off("click")
+				$(".use-cookie-add-box .submit-btn").removeClass("checked");
+			}
+		});
+		// 监听bug
+		$("#bug-warranty").on("click",function(){
+			$(".use-bug-add-box").removeClass("closed");
+			listenDivClose($(".use-bug-add-box"))
+			return false;
+			
+		})
+		$(".use-bug-add-box .close").on("click",function(){
+			$(".use-bug-add-box").addClass("closed");
+		})
+		// 章节选项非空检验
+		$("select[name='chapter-title-select']").on("blur",function(){
+			if($("select[name='chapter-title-select']").val() == -1){
+				$("select[name='chapter-title-select']").addClass("nochecked")
+				chapterSelectFlag = false;
+				return false;
+			}else{
+				$("select[name='chapter-title-select']").removeClass("nochecked")
+				chapterSelectFlag = true;
+			}
+			// 动态生成小节列表
+			let chapterNum = $(this).val()
+			$("select[name='section-title-select']").empty();
+			$("select[name='section-title-select']").append($("<option value='-1'>请选择小节</option>"))
+			$.each($("#t"+chapterNum).parent().find(".section>h3"), function(){
+				let section_title = $(this).text();
+				$("select[name='section-title-select']").append($("<option value='"+ section_title +"'>"+ section_title +"</option>"));
+			})
+			paramCheck();
+		})
+		// 小节选项非空检验
+		$("select[name='section-title-select']").on("blur",function(){
+			if($("select[name='section-title-select']").val() == -1){
+				$("select[name='section-title-select']").addClass("nochecked")
+				sectionSelectFlag = false;
+				return false;
+			}else{
+				$("select[name='section-title-select']").removeClass("nochecked")
+				sectionSelectFlag = true;
+			}
+			paramCheck();
+		})
+		// 视频名称非空校验
+		$(".video-name-input").on("blur",function(){
+			if($(".video-name-input").val().trim() == ''){
+				$(".video-name-input").addClass("nochecked")
+				videoNameInput = false;
+				return false;
+			}else{
+				$(this).removeClass("nochecked")
+				videoNameInput = true;
+			}
+			paramCheck();
+		})
+		// 视频点播地址非空校验
+		$(".video-url-input").on("blur",function(){
+			if($(".video-url-input").text().trim() == ''){
+				$(".video-url-input").addClass("nochecked")
+				videoUrlInputFlag = false;
+				return false;
+			}else{
+				$(this).removeClass("nochecked")
+				videoUrlInputFlag = true;
+			}
+			paramCheck();
+		})
+		// 视频m3u8地址非空校验
+		$(".video-m3u8-input").on("blur",function(){
+			if($(".video-m3u8-input").text().trim() == ''){
+				$(".video-m3u8-input").addClass("nochecked")
+				videoM3u8InputFlag = false;
+				return false;
+			}else{
+				videoM3u8InputFlag = true;
+				$(this).removeClass("nochecked")
+			}
+			paramCheck();
+		})
+		// 文件名称非空校验
+		$(".file-name-input").on("blur",function(){
+			if($(".file-name-input").val().trim() == ''){
+				$(".file-name-input").addClass("nochecked")
+				fileNameInput = false;
+				return false;
+			}else{
+				fileNameInput = true;
+				$(this).removeClass("nochecked")
+			}
+			paramCheck();
+		})
+		// 文件url非空校验
+		$(".file-url-input").on("blur",function(){
+			if($(".file-url-input").text().trim() == ''){
+				$(".file-url-input").addClass("nochecked")
+				fileUrlInput = false;
+				return false;
+			}else{
+				fileUrlInput = true;
+				$(this).removeClass("nochecked")
+			}
+			paramCheck();
+		})
+		// 监听退出登陆
+		$(".head > img").on("click", function(){
+		    if(confirm("需要退出登陆吗?")){
+		        $.cookie("jwtToken",null,{path:'/'})
+		        $.removeCookie("jwtToken",{path:'/',domain:'wuhanwei.qicp.vip'})
+            	$.removeCookie("jwtToken",{path:'/'})
+		        window.location.href = "login.html";
+		    }
+		})
+		// 监听帮助说明
+		$(".help").on("click", function(){
+			$(".menu-btn").trigger("click");
+		})
+		// 监听发送bug消息到微信
+		sendBugToWX();
+	})
+	
+	
+</script>
+
+
+<!-- Mirrored from www.ym4j.com/codes/js/934/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 26 Oct 2021 18:44:34 GMT -->
+</html>
