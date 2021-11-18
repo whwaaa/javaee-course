@@ -1654,19 +1654,18 @@
 				},
 				crossDomain: true,
 				success: function (data) {
+					console.log(data)
 					if(data.code == 200){
-						console.log(data.obj)
 						layer.closeAll();
 						layer.msg("更新成功")
 						clearTimeout(updateTimeout);
 						setTimeout(function () {
 							window.location.href = "index.html?ck=ok&chaId=" + chapter;
 						}, 500)
-					}else if(data.code == 500) {
+					} else {
 						layer.closeAll();
 						layer.alert(data.msg);
 					}
-
 				},
 				complete : function(xhr, status) {
 					myComplete(xhr, status);
