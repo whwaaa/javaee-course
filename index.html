@@ -1381,7 +1381,7 @@
 					downloadLink += "<a class='fileDown noperm' name='f_"+this.fileId+"' href='javascript:void(0);'>获取</a><a class='fileDown noperm cashOwn' name='f_"+this.fileId+"' href='javascript:void(0);'>永久兑换</a>";
 				}
 				$.each($("#t"+chapterNum).parent().find(".section>h3"), function(){
-					if($(this).text().trim().indexOf(_this_sectionTitle) != -1){
+					if($(this).text().trim().replace(/第\d+节\s*/,"") == _this_sectionTitle){
 						let con = "<li>资料： "+_this_fileName+downloadLink+"</li>";
 						$(this).parent().append($(con))
 					}
@@ -1396,7 +1396,7 @@
 				let _this_videoName = this.videoName;
 				let _this_videoUrl = this.videoUrl;
 				$.each($("#t"+chapterNum).parent().find(".section>h3"), function(){
-					if($(this).text().trim().indexOf(_this_sectionTitle) != -1){
+					if($(this).text().trim().replace(/第\d+节\s*/,"") == _this_sectionTitle){
 						let con = "";
 						if(_this_videoM3u8 == undefined || _this_videoM3u8 == ''){
 							// 用户没有权限访问
