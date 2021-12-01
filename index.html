@@ -1707,8 +1707,35 @@
 			})
 		})
 	}
+	// 验证登录
+	function isLogin(){
+		$.ajax({
+			type: "POST",
+			url: origin + "/is-login-test",
+			data: {forwardUrl:forwardUrl,jwtToken:$.cookie('jwtToken')},
+			dataType: "json",
+			xhrFields: {
+				withCredentials: true
+			},
+			crossDomain: true,
+			success: function (data) {
+				if(data.code === 200){
+				}else if(data.code === 403){
+					// 登录信息过期,请重新登陆!
+					layer.msg(data.msg, function(){});
+					setTimeout(function(){
+						window.location.href = "login.html";
+					}, 1500);
+				}else if(data.code === 401){
+					window.location.href = "login.html";
+				}
+			}
+		})
+	}
 		
 	$(function(){
+		// 验证登录
+		isLogin();
 		// 从cookie中获取用户信息
 		parseJwtToken();
 		// 章节标题添加a标签

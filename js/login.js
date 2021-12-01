@@ -24,6 +24,8 @@ $(function(){
 		}
 	})
 })
+// 获取地址栏参数
+let rg = document.location.toString().GetValue("rg");
 
 // 请求登陆
 function requestLogin(){
@@ -62,7 +64,7 @@ function loginVerify(authCode){
 	$.ajax({
         type: "GET",
         url: origin + "/jee-wxpusher/jee-verify",
-        data: {authCode:authCode,forwardUrl:forwardUrl},
+        data: {authCode:authCode,forwardUrl:forwardUrl,registration:rg},
         xhrFields: {
 			withCredentials: true
 		},
